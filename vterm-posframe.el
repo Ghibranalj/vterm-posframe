@@ -128,19 +128,19 @@
 
     (setq vterm-posframe--buffer buffer)
     (setq vterm-posframe--frame frame)
+
     (x-focus-frame frame)
-    (dolist (window (window-list frame))
-      (set-window-margins window 4 4)))
-  ;; timeout 0.5 seconds
-  (if (fboundp 'evil-force-normal-state)
-      (advice-add 'evil-force-normal-state :override 'ignore))
-  (run-with-timer 0.1 nil #'add-hook 'post-command-hook #'vterm-posframe--hide-when-focus-lost))
+    (set-window-margins (get-buffer-window buffer) 4 4)
+    ;; timeout 0.5 seconds
+    (if (fboundp 'evil-force-normal-state)
+        (advice-add 'evil-force-normal-state :override 'ignore))
+    (run-with-timer 0.1 nil #'add-hook 'post-command-hook #'vterm-posframe--hide-when-focus-lost))
 
-(defun vterm-posframe-toggle (&optional arg)
-  (interactive "P")
-  (if vterm-posframe--frame
-      (vterm-posframe-close)
-    (vterm-posframe-show arg)))
+  (defun vterm-posframe-toggle (&optional arg)
+    (interactive "P")
+    (if vterm-posframe--frame
+        (vterm-posframe-close)
+      (vterm-posframe-show arg)))
 
-(provide 'vterm-posframe)
+  (provide 'vterm-posframe)
 ;;; vterm-posframe.el ends here
