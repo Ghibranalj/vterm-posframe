@@ -134,7 +134,7 @@
     ;; timeout 0.5 seconds
     (if (fboundp 'evil-force-normal-state)
         (advice-add 'evil-force-normal-state :override 'ignore))
-    (run-with-timer 0.1 nil #'add-hook 'post-command-hook #'vterm-posframe--hide-when-focus-lost))
+    (run-with-timer 0.1 nil #'add-hook 'post-command-hook #'vterm-posframe--hide-when-focus-lost)))
 
   (defun vterm-posframe-toggle (&optional arg)
     (interactive "P")
